@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
-    <title>Login &mdash; SIMPASETDA</title>
+    <title>Login &mdash; SILACAK</title>
 
-    <link rel="shortcut icon" href="{{ asset('assets/img/school.svg') }}" type="image/x-icon">
+    <link rel="shortcut icon" href="{{ asset('assets/img/silacak.jpeg') }}" type="image/x-icon">
 
     <!-- General CSS Files -->
     <link rel="stylesheet" href="{{ asset('assets/modules/bootstrap/css/bootstrap.min.css') }}">
@@ -28,13 +28,13 @@
                     <div
                         class="col-12 col-sm-8 offset-sm-2 col-md-6 offset-md-3 col-lg-6 offset-lg-3 col-xl-4 offset-xl-4">
                         <div class="login-brand">
-                            <img src="{{ asset('assets/img/school.svg') }}" alt="logo" width="100"
+                            <img src="{{ asset('assets/img/silacak.jpeg') }}" alt="logo" width="100"
                                 class="shadow-light rounded-circle" style="padding:10px;background: white;">
                         </div>
 
                         <div class="card card-primary">
                             <div class="card-header text-center">
-                                <h4>Login SIMPASETDA</h4>
+                                <h4>Login SILACAK</h4>
                             </div>
 
                             <div class="card-body">
