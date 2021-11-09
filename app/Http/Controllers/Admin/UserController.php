@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\History;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
@@ -12,6 +14,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware(['permission:pimpinan.index']);
+    
     }
 
     public function index()
@@ -32,15 +35,23 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'name'      => 'required',
+            'nama_lengkap'  => 'required',
+            'name'      => 'required|unique:users',
             'email'     => 'required|email|unique:users',
             'password'  => 'required|confirmed'
         ]);
 
         $user = User::create([
+            'nama_lengkap' => $request->input('nama_lengkap'),
             'name'      => $request->input('name'),
             'email'     => $request->input('email'),
             'password'  => bcrypt($request->input('password'))
+        ]);
+
+        History::create([
+            'fk_admin_id' => Auth::user()->id,
+            'aksi' => "update data $user->name ",
+
         ]);
 
         //assign role
@@ -63,8 +74,10 @@ class UserController extends Controller
 
      public function update(Request $request, User $user)
     {
+        
         $this->validate($request, [
-            'name'      => 'required',
+            'nama_lengkap' => 'required',
+            'name'      => 'required|unique:users,name,'.$user->id,
             'email'     => 'required|email|unique:users,email,'.$user->id
         ]);
 
@@ -72,11 +85,13 @@ class UserController extends Controller
 
         if($request->input('password') == "") {
             $user->update([
+                'nama_lengkap' => $request->input('nama_lengkap'),
                 'name'      => $request->input('name'),
                 'email'     => $request->input('email')
             ]);
         } else {
             $user->update([
+                'nama_lengkap' => $request->input('nama_lengkap'),
                 'name'      => $request->input('name'),
                 'email'     => $request->input('email'),
                 'password'  => bcrypt($request->input('password'))
@@ -85,7 +100,11 @@ class UserController extends Controller
 
         //assign role
         $user->syncRoles($request->input('role'));
-
+        // log activity
+        History::create([
+            'fk_admin_id' => Auth::user()->id,
+            'aksi' => "update data  $request->name ",
+        ]);
         if($user){
             //redirect dengan pesan sukses
             return redirect()->route('admin.user.index')->with(['success' => 'Data Berhasil Diupdate!']);
@@ -98,6 +117,11 @@ class UserController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+        History::create([
+            'fk_admin_id' => Auth::user()->id,
+            'aksi' => "update data $user->name ",
+
+        ]);
         $user->delete();
 
 

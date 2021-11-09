@@ -75,7 +75,7 @@
                         </li>
        
                         <li
-                            class="dropdown {{ setActive('admin/luas-tanah'). setActive('admin/kendaraan'). setActive('admin/user') }}">
+                            class="dropdown {{ setActive('admin/luas-tanah'). setActive('admin/kendaraan') }}">
                                 <a href="#" class="nav-link has-dropdown"> <i class="fas fa-book"></i><span>
                                 Pendataan Asset</span></a>
                             
@@ -92,7 +92,7 @@
                         </li>
 
                          <li
-                            class="dropdown {{ setActive('admin/pinjam-luas-tanah'). setActive('admin/pinjam-kendaraan'). setActive('admin/user') }}">
+                            class="dropdown {{ setActive('admin/pinjam-luas-tanah'). setActive('admin/pinjam-kendaraan') }}">
                                 <a href="#" class="nav-link has-dropdown"> <i class="fas fa-folder"></i><span>Pinjam Pakai</span></a>
                             
                             <ul class="dropdown-menu">
@@ -167,9 +167,9 @@
                         </li>
                             @if(auth()->user()->can('pimpinan.index'))
 
-                        <li class="{{ setActive('admin/log-activity') }}">
+                        <li class="{{ setActive('admin/history') }}">
                             <a class="nav-link"
-                                href="{{ route('admin.dashboard.index') }}">
+                                href="{{ route('admin.history.index') }}">
                                <i class="fas fa-chart-line"></i>
                                 <span>Log Activity</span>
                             </a>
@@ -185,7 +185,7 @@
 
             <footer class="main-footer">
                 <div class="footer-left">
-                    Copyright &copy; {{ date('Y') }} <div class="bullet"></div> SIMPASETDA <div class="bullet"></div> All Rights
+                    Copyright &copy; {{ date('Y') }} <div class="bullet"></div> SILACAK <div class="bullet"></div> All Rights
                     Reserved.
                 </div>
                 <div class="footer-right">
@@ -196,11 +196,15 @@
     </div>
 
     <!-- General JS Scripts -->
+  @stack('prepend-script')
     <script src="{{ asset('assets/modules/popper.js') }}"></script>
     <script src="{{ asset('assets/modules/bootstrap/js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('assets/modules/nicescroll/jquery.nicescroll.min.js') }}"></script>
     <script src="{{ asset('assets/js/stisla.js') }}"></script>
     <script src="{{ asset('assets/modules/select2/dist/js/select2.full.min.js') }}"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css">
+  
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 
     <!-- JS Libraies -->
 
@@ -211,12 +215,12 @@
     <script src="{{ asset('assets/js/custom.js') }}"></script>
     <script>
         //active select2
-        $(document).ready(function () {
-            $('select').select2({
-                theme: 'bootstrap4',
-                width: 'style',
-            });
-        });
+        // $(document).ready(function () {
+        //     $('select').select2({
+        //         theme: 'bootstrap4',
+        //         width: 'style',
+        //     });
+        // });
 
         //flash message
         @if(session()->has('success'))
@@ -243,5 +247,6 @@
         });
         @endif
     </script>
+  @stack('addon-script')
 </body>
 </html>

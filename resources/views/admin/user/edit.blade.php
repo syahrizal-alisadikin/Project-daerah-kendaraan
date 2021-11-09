@@ -20,7 +20,19 @@
                         @csrf
                         @method('PUT')
                         <div class="form-group">
-                            <label>NAMA USER</label>
+                            <label>Nama Lengkap</label>
+                            <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap', $user->nama_lengkap) }}"
+                                placeholder="Masukkan Nama Lengkap"
+                                class="form-control @error('nama_lengkap') is-invalid @enderror">
+
+                            @error('nama_lengkap')
+                            <div class="invalid-feedback" style="display: block">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <label>Username</label>
                             <input type="text" name="name" value="{{ old('name', $user->name) }}"
                                 placeholder="Masukkan Nama User"
                                 class="form-control @error('name') is-invalid @enderror">
@@ -65,7 +77,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="font-weight-bold">ROLE</label>
+                            <label class="font-weight-bold">ROLE</label> <br>
                            
                             @foreach ($roles as $role)
                                 <div class="form-check form-check-inline">

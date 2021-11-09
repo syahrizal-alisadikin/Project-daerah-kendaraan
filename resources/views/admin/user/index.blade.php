@@ -37,7 +37,8 @@
                             <thead>
                             <tr class="text-center">
                                 <th scope="col" style="width: 6%">NO.</th>
-                                <th scope="col">NAMA USER</th>
+                                <th scope="col">NAMA LENGKAP</th>
+                                <th scope="col">USERNAME</th>
                                 <th scope="col">ROLE</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
@@ -46,6 +47,7 @@
                             @foreach ($users as $no => $user)
                                 <tr class="text-center">
                                     <th scope="row" style="text-align: center">{{ ++$no + ($users->currentPage()-1) * $users->perPage() }}</th>
+                                    <td>{{ $user->nama_lengkap }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>
                                         @if(!empty($user->getRoleNames()))
