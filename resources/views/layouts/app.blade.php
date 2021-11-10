@@ -75,16 +75,16 @@
                         </li>
        
                         <li
-                            class="dropdown {{ setActive('admin/luas-tanah'). setActive('admin/kendaraan') }}">
+                            class="dropdown {{ setActive('admin/gedung'). setActive('admin/kendaraan') }}">
                                 <a href="#" class="nav-link has-dropdown"> <i class="fas fa-book"></i><span>
                                 Pendataan Asset</span></a>
                             
                             <ul class="dropdown-menu">
-                                    <li class="{{ setActive('admin/luas-tanah') }}"><a class="nav-link"
-                                        href="{{ route('admin.role.index') }}">Luas Tanah</a>
+                                    <li class="{{ setActive('admin/gedung') }}"><a class="nav-link"
+                                        href="{{ route('admin.gedung.index') }}">Gedung</a>
                                 </li>
                                     <li class="{{ setActive('admin/kendaraan') }}"><a class="nav-link"
-                                        href="{{ route('admin.role.index') }}">Kendaraan</a>
+                                        href="{{ route('admin.kendaraan.index') }}">Kendaraan</a>
                                 </li>
 
                               
@@ -97,7 +97,7 @@
                             
                             <ul class="dropdown-menu">
                                     <li class="{{ setActive('admin/pinjam-luas-tanah') }}"><a class="nav-link"
-                                        href="{{ route('admin.role.index') }}">Luas Tanah</a>
+                                        href="{{ route('admin.role.index') }}">Gedung</a>
                                 </li>
                                     <li class="{{ setActive('admin/pinjam-kendaraan') }}"><a class="nav-link"
                                         href="{{ route('admin.role.index') }}">Kendaraan</a>
@@ -126,7 +126,7 @@
 
                         <li class="{{ setActive('admin/setting-akun') }}">
                             <a class="nav-link"
-                                href="{{ route('admin.dashboard.index') }}">
+                                href="{{ route('setting-akun') }}">
                                <i class="fas fa-user-cog"></i>
                                 <span>Setting Akun</span>
                             </a>

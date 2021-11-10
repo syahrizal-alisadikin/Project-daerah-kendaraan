@@ -78,23 +78,31 @@ class UserController extends Controller
         $this->validate($request, [
             'nama_lengkap' => 'required',
             'name'      => 'required|unique:users,name,'.$user->id,
-            'email'     => 'required|email|unique:users,email,'.$user->id
+            'email'     => 'required|email|unique:users,email,'.$user->id,
+            'password'   => 'required|confirmed'  
         ]);
 
         $user = User::findOrFail($user->id);
+        if($request->file('foto')){
+            $image = $request->file('foto');
+            $image->storeAs('public/users', $image->hashName());
+        }
 
         if($request->input('password') == "") {
             $user->update([
-                'nama_lengkap' => $request->input('nama_lengkap'),
                 'name'      => $request->input('name'),
-                'email'     => $request->input('email')
+                'email'     => $request->input('email'),
+                'nama_lengkap' => $request->input('nama_lengkap'),
+                'foto'         => $request->file('foto') != null ? $image->hashName() : $user->foto ,
             ]);
         } else {
             $user->update([
-                'nama_lengkap' => $request->input('nama_lengkap'),
                 'name'      => $request->input('name'),
                 'email'     => $request->input('email'),
-                'password'  => bcrypt($request->input('password'))
+                'password'  => bcrypt($request->input('password')),
+                'nama_lengkap' => $request->input('nama_lengkap'),
+                'foto'         => $request->file('foto') != null ? $image->hashName() : $user->foto ,
+
             ]);
         }
 
@@ -133,6 +141,61 @@ class UserController extends Controller
             return response()->json([
                 'status' => 'error'
             ]);
+        }
+    }
+
+    // Setting akun
+    public function Setting()
+    {
+        $user = User::findOrFail(Auth::user()->id);
+        return view('admin.user.setting',compact('user'));
+    }
+
+     public function UpdateAkun(Request $request, $id)
+    {
+        $user = User::findOrFail($id);
+
+        $this->validate($request, [
+            'nama_lengkap' => 'required',
+            'name'      => 'required|unique:users,name,'.$user->id,
+            'email'     => 'required|email|unique:users,email,'.$user->id,
+            'password'   => 'required|confirmed'  
+        ]);
+
+        if($request->file('foto')){
+            $image = $request->file('foto');
+            $image->storeAs('public/users', $image->hashName());
+        }
+
+        if($request->input('password') == "") {
+            $user->update([
+                'name'      => $request->input('name'),
+                'email'     => $request->input('email'),
+                'nama_lengkap' => $request->input('nama_lengkap'),
+                'foto'         => $request->file('foto') != null ? $image->hashName() : $user->foto ,
+            ]);
+        } else {
+            $user->update([
+                'name'      => $request->input('name'),
+                'email'     => $request->input('email'),
+                'password'  => bcrypt($request->input('password')),
+                'nama_lengkap' => $request->input('nama_lengkap'),
+                'foto'         => $request->file('foto') != null ? $image->hashName() : $user->foto ,
+
+            ]);
+        }
+
+        // log activity
+        History::create([
+            'fk_admin_id' => Auth::user()->id,
+            'aksi' => "update data  $request->name ",
+        ]);
+        if($user){
+            //redirect dengan pesan sukses
+            return redirect()->route('setting-akun')->with(['success' => 'Data Berhasil Diupdate!']);
+        }else{
+            //redirect dengan pesan error
+            return redirect()->route('setting-akun')->with(['error' => 'Data Gagal Diupdate!']);
         }
     }
 }
