@@ -18,7 +18,7 @@
                     <form action="{{ route('admin.role.index') }}" method="GET">
                         <div class="form-group">
                             <div class="input-group mb-3">
-                                @can('roles.create')
+                                @can('roles')
                                     <div class="input-group-prepend">
                                         <a href="{{ route('admin.role.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>

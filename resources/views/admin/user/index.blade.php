@@ -18,7 +18,7 @@
                     <form action="{{ route('admin.user.index') }}" method="GET">
                         <div class="form-group">
                             <div class="input-group mb-3">
-                                @can('admin.create')
+                                @can('admin')
                                     <div class="input-group-prepend">
                                         <a href="{{ route('admin.user.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
