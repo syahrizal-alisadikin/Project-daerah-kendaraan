@@ -107,6 +107,7 @@
                             </ul>
                         </li>
                         
+                        @can('mutasi_aset')
 
                          <li class="{{ setActive('admin/mutasi-asset') }}">
                             <a class="nav-link"
@@ -115,6 +116,9 @@
                                 <span>Mutasi Asset</span>
                             </a>
                         </li>
+                        @endcan
+                        
+                        @can('gallery_aset')
 
                          <li class="{{ setActive('admin/gallery-asset') }}">
                             <a class="nav-link"
@@ -123,6 +127,8 @@
                                 <span>Gallery Asset</span>
                             </a>
                         </li>
+                        @endcan
+
 
                         <li class="{{ setActive('admin/setting-akun') }}">
                             <a class="nav-link"
@@ -140,32 +146,32 @@
                     
                         <li
                             class="dropdown {{ setActive('admin/role'). setActive('admin/permission'). setActive('admin/user') }}">
-                            @if(auth()->user()->can('pimpinan.index'))
+                            @if(auth()->user()->can('pimpinan'))
                                 <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Users
                                 Management</span></a>
                             @endif
                             
                             <ul class="dropdown-menu">
-                                @can('roles.index')
+                                @can('roles')
                                     <li class="{{ setActive('admin/role') }}"><a class="nav-link"
                                         href="{{ route('admin.role.index') }}"><i class="fas fa-unlock"></i> Roles</a>
                                 </li>
                                 @endcan
 
-                                @can('permissions.index')
+                                @can('permissions')
                                     <li class="{{ setActive('admin/permission') }}"><a class="nav-link"
                                     href="{{ route('admin.permission.index') }}"><i class="fas fa-key"></i>
                                     Permissions</a></li>
                                 @endcan
 
-                                @can('admin.index')
+                                @can('admin')
                                     <li class="{{ setActive('admin/user') }}"><a class="nav-link"
                                         href="{{ route('admin.user.index') }}"><i class="fas fa-users"></i> Users</a>
                                 </li>
                                 @endcan
                             </ul>
                         </li>
-                            @if(auth()->user()->can('pimpinan.index'))
+                            @if(auth()->user()->can('pimpinan'))
 
                         <li class="{{ setActive('admin/history') }}">
                             <a class="nav-link"
