@@ -17,7 +17,18 @@
                 <div class="card-body">
                     <form action="{{ route('admin.user.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
+ <div class="form-group">
+                            <label>Nama Lengkap</label>
+                            <input type="text" name="nama_lengkap" value="{{ old('nama_lengkap') }}"
+                                placeholder="Masukkan Nama Lengkap"
+                                class="form-control @error('nama_lengkap') is-invalid @enderror">
 
+                            @error('nama_lengkap')
+                            <div class="invalid-feedback" style="display: block">
+                                {{ $message }}
+                            </div>
+                            @enderror
+                        </div>
                         <div class="form-group">
                             <label>NAMA USER</label>
                             <input type="text" name="name" value="{{ old('name') }}" placeholder="Masukkan Nama User"

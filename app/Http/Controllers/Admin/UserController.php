@@ -79,7 +79,6 @@ class UserController extends Controller
             'nama_lengkap' => 'required',
             'name'      => 'required|unique:users,name,'.$user->id,
             'email'     => 'required|email|unique:users,email,'.$user->id,
-            'password'   => 'required|confirmed'  
         ]);
 
         $user = User::findOrFail($user->id);
