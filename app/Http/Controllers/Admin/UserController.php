@@ -13,7 +13,7 @@ class UserController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['permission:pimpinan.index']);
+        $this->middleware(['permission:pimpinan']);
     
     }
 

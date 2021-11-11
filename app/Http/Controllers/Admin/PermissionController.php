@@ -11,7 +11,7 @@ class PermissionController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['permission:permissions.index']);
+        $this->middleware(['permission:permissions']);
     } 
 
     public function index()
