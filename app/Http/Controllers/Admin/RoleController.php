@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\History;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
@@ -38,6 +39,11 @@ class RoleController extends Controller
             'name' => $request->input('name')
         ]);
 
+        History::create([
+            'fk_admin_id' => Auth::user()->id,
+            'aksi' => "Tambah data $role->name ",
+
+        ]);
         //assign permission to role
         $role->syncPermissions($request->input('permissions'));
 
@@ -67,6 +73,11 @@ class RoleController extends Controller
             'name' => $request->input('name')
         ]);
 
+         History::create([
+            'fk_admin_id' => Auth::user()->id,
+            'aksi' => "Update data $role->name ",
+
+        ]);
         //assign permission to role
         $role->syncPermissions($request->input('permissions'));
 
@@ -82,6 +93,11 @@ class RoleController extends Controller
     public function destroy($id)
     {
         $role = Role::findOrFail($id);
+         History::create([
+            'fk_admin_id' => Auth::user()->id,
+            'aksi' => "Hapus data $role->name ",
+
+        ]);
         $permissions = $role->permissions;
         $role->revokePermissionTo($permissions);
         $role->delete();
