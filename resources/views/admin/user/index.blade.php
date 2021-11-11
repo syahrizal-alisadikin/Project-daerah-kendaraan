@@ -57,13 +57,13 @@
                                         @endif
                                     </td>
                                     <td class="text-center">
-                                        @can('admin.edit')
+                                        @can('admin')
                                             <a href="{{ route('admin.user.edit', $user->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
                                         @endcan
                                         
-                                        @can('admin.delete')
+                                        @can('admin')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $user->id }}">
                                                 <i class="fa fa-trash"></i>
                                             </button>

@@ -53,13 +53,13 @@
                                         @endforeach
                                     </td>
                                     <td class="text-center">
-                                        @can('roles.edit')
+                                        @can('roles')
                                             <a href="{{ route('admin.role.edit', $role->id) }}" class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
                                         @endcan
                                         
-                                        @can('roles.delete')
+                                        @can('roles')
                                             <button onClick="Delete(this.id)" class="btn btn-sm btn-danger" id="{{ $role->id }}">
                                                 <i class="fa fa-trash"></i>
                                             </button>
