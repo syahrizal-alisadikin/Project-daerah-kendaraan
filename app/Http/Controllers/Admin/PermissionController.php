@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\History;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Permission;
 class PermissionController extends Controller
 {
@@ -36,7 +38,11 @@ class PermissionController extends Controller
             'name' => $request->input('name')
         ]);
 
-        
+        History::create([
+            'fk_admin_id' => Auth::user()->id,
+            'aksi' => "Tambah data $permission->name ",
+
+        ]);
 
         if($permission){
             //redirect dengan pesan sukses
@@ -64,6 +70,11 @@ class PermissionController extends Controller
         $permission->update([
             'name' => $request->name
         ]);
+        History::create([
+            'fk_admin_id' => Auth::user()->id,
+            'aksi' => "Update data $permission->name ",
+
+        ]);
         if($permission){
             //redirect dengan pesan sukses
             return redirect()->route('admin.permission.index')->with(['success' => 'Data Berhasil Disimpan!']);
@@ -75,7 +86,11 @@ class PermissionController extends Controller
     public function destroy($id)
     {
         $permission = Permission::findOrFail($id);
-        
+        History::create([
+            'fk_admin_id' => Auth::user()->id,
+            'aksi' => "Hapus data $permission->name ",
+
+        ]);
         $permission->delete();
 
         if($permission){
