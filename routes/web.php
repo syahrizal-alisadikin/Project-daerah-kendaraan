@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GedungController;
 use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\KendaraanController;
+use App\Http\Controllers\Admin\LuasTanahController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\UserController;
@@ -32,6 +33,8 @@ Route::prefix('admin')->group(function () {
         //dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
         // Luas tanah
+        Route::resource('/luas-tanah', LuasTanahController::class,['except' => ['show'] ,'as' => 'admin']);
+
         Route::resource('/gedung', GedungController::class,['except' => ['show'] ,'as' => 'admin']);
     //    Kendaraan
         Route::resource('/kendaraan', KendaraanController::class,['except' => ['show'] ,'as' => 'admin']);

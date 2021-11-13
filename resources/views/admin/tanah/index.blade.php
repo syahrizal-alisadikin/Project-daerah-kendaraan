@@ -4,23 +4,23 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Gedung</h1>
+            <h1>Luas Tanah</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-book"></i> Gedung</h4>
+                    <h4><i class="fas fa-book"></i> Luas Tanah</h4>
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('admin.gedung.index') }}" method="GET">
+                    <form action="{{ route('admin.luas-tanah.index') }}" method="GET">
                         <div class="form-group">
                             <div class="input-group mb-3">
                                 @can('admin')
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('admin.gedung.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
+                                        <a href="{{ route('admin.luas-tanah.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
                                 @endcan
                                 <input type="text" class="form-control" name="q"
@@ -37,7 +37,7 @@
                             <thead>
                             <tr class="text-center">
                                 <th scope="col" style="width: 6%">NO.</th>
-                                <th scope="col">Nama Gedung</th>
+                                <th scope="col">Tanah</th>
                                 <th scope="col">Harga</th>
                                 <th scope="col">Alamat</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>

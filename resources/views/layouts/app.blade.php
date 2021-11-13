@@ -75,13 +75,13 @@
                         </li>
        
                         <li
-                            class="dropdown {{ setActive('admin/gedung'). setActive('admin/kendaraan') }}">
+                            class="dropdown {{ setActive('admin/luas-tanah'). setActive('admin/kendaraan') }}">
                                 <a href="#" class="nav-link has-dropdown"> <i class="fas fa-book"></i><span>
                                 Pendataan Asset</span></a>
                             
                             <ul class="dropdown-menu">
-                                    <li class="{{ setActive('admin/gedung') }}"><a class="nav-link"
-                                        href="{{ route('admin.gedung.index') }}">Gedung</a>
+                                    <li class="{{ setActive('admin/luas-tanah') }}"><a class="nav-link"
+                                        href="{{ route('admin.luas-tanah.index') }}">Luas Tanah</a>
                                 </li>
                                     <li class="{{ setActive('admin/kendaraan') }}"><a class="nav-link"
                                         href="{{ route('admin.kendaraan.index') }}">Kendaraan</a>
@@ -97,7 +97,7 @@
                             
                             <ul class="dropdown-menu">
                                     <li class="{{ setActive('admin/pinjam-luas-tanah') }}"><a class="nav-link"
-                                        href="{{ route('admin.role.index') }}">Gedung</a>
+                                        href="{{ route('admin.luas-tanah.index') }}">Luas Tanah</a>
                                 </li>
                                     <li class="{{ setActive('admin/pinjam-kendaraan') }}"><a class="nav-link"
                                         href="{{ route('admin.role.index') }}">Kendaraan</a>
