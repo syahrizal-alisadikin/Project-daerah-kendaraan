@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BidangController;
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\GedungController;
 use App\Http\Controllers\Admin\HistoryController;
@@ -7,6 +8,9 @@ use App\Http\Controllers\Admin\KendaraanController;
 use App\Http\Controllers\Admin\LuasTanahController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\RoleController;
+use App\Http\Controllers\Admin\SubUnitController;
+use App\Http\Controllers\Admin\UnitController;
+use App\Http\Controllers\Admin\UpbController;
 use App\Http\Controllers\Admin\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -33,7 +37,7 @@ Route::prefix('admin')->group(function () {
         //dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
         // Luas tanah
-        Route::resource('/luas-tanah', LuasTanahController::class,['except' => ['show'] ,'as' => 'admin']);
+        Route::resource('/tanah', LuasTanahController::class,['except' => ['show'] ,'as' => 'admin']);
 
         Route::resource('/gedung', GedungController::class,['except' => ['show'] ,'as' => 'admin']);
     //    Kendaraan
@@ -52,6 +56,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/setting-akun', [UserController::class,'Setting'])->name('setting-akun');
         Route::PUT('/update-akun/{id}', [UserController::class,'UpdateAkun'])->name('update-akun');
 
+        Route::resource('/bidang', BidangController::class, ['except' => ['show'] ,'as' => 'admin']);
+        Route::resource('/units', UnitController::class, ['except' => ['show'] ,'as' => 'admin']);
+        Route::resource('/subunit', SubUnitController::class, ['except' => ['show'] ,'as' => 'admin']);
+        Route::resource('/upb', UpbController::class, ['except' => ['show'] ,'as' => 'admin']);
 
     });
 

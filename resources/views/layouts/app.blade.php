@@ -75,13 +75,13 @@
                         </li>
        
                         <li
-                            class="dropdown {{ setActive('admin/luas-tanah'). setActive('admin/kendaraan') }}">
+                            class="dropdown {{ setActive('admin/tanah'). setActive('admin/kendaraan') }}">
                                 <a href="#" class="nav-link has-dropdown"> <i class="fas fa-book"></i><span>
                                 Pendataan Asset</span></a>
                             
                             <ul class="dropdown-menu">
-                                    <li class="{{ setActive('admin/luas-tanah') }}"><a class="nav-link"
-                                        href="{{ route('admin.luas-tanah.index') }}">Luas Tanah</a>
+                                    <li class="{{ setActive('admin/tanah') }}"><a class="nav-link"
+                                        href="{{ route('admin.tanah.index') }}">Tanah</a>
                                 </li>
                                     <li class="{{ setActive('admin/kendaraan') }}"><a class="nav-link"
                                         href="{{ route('admin.kendaraan.index') }}">Kendaraan</a>
@@ -97,7 +97,7 @@
                             
                             <ul class="dropdown-menu">
                                     <li class="{{ setActive('admin/pinjam-luas-tanah') }}"><a class="nav-link"
-                                        href="{{ route('admin.luas-tanah.index') }}">Luas Tanah</a>
+                                        href="{{ route('admin.tanah.index') }}">Tanah</a>
                                 </li>
                                     <li class="{{ setActive('admin/pinjam-kendaraan') }}"><a class="nav-link"
                                         href="{{ route('admin.role.index') }}">Kendaraan</a>
@@ -118,7 +118,7 @@
                         </li>
                         @endcan
                         
-                        @can('gallery_aset')
+                        {{-- @can('gallery_aset')
 
                          <li class="{{ setActive('admin/gallery-asset') }}">
                             <a class="nav-link"
@@ -127,7 +127,7 @@
                                 <span>Gallery Asset</span>
                             </a>
                         </li>
-                        @endcan
+                        @endcan --}}
 
 
                         <li class="{{ setActive('admin/setting-akun') }}">
@@ -171,6 +171,29 @@
                                 @endcan
                             </ul>
                         </li>
+                        @if(auth()->user()->can('pimpinan'))
+                             <li class="dropdown {{ setActive('admin/bidang'). setActive('admin/units'). setActive('admin/subunit') . setActive('admin/upb')}}">
+                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-users"></i><span>Bidang</span></a>
+                            
+                            
+                            <ul class="dropdown-menu">
+                                    <li class="{{ setActive('admin/bidang') }}"><a class="nav-link"
+                                        href="{{ route('admin.bidang.index') }}"><i class="fas fa-unlock"></i> Bidang</a>
+                                </li>
+
+                                    <li class="{{ setActive('admin/units') }}"><a class="nav-link"
+                                    href="{{ route('admin.units.index') }}"><i class="fas fa-key"></i>
+                                    Unit</a></li>
+
+                                    <li class="{{ setActive('admin/subunit') }}"><a class="nav-link"
+                                        href="{{ route('admin.subunit.index') }}"><i class="fas fa-users"></i> Sub Unit</a>
+                                </li>
+                                <li class="{{ setActive('admin/upb') }}"><a class="nav-link"
+                                        href="{{ route('admin.upb.index') }}"><i class="fas fa-users"></i> UPB</a>
+                                </li>
+                            </ul>
+                            </li>
+                        @endif
                             @if(auth()->user()->can('pimpinan'))
 
                         <li class="{{ setActive('admin/history') }}">
@@ -181,6 +204,8 @@
                             </a>
                         </li>
                             @endif
+
+                            
 
                     </ul>
                 </aside>

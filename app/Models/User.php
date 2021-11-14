@@ -25,7 +25,11 @@ class User extends Authenticatable
         'email',
         'password',
         'nama_lengkap',
-        'foto'
+        'foto',
+        'bidang_id',
+        'unit_id',
+        'subunit_id',
+        'upb_id',
     ];
 
     /**
@@ -46,4 +50,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function bidang()
+    {
+        return $this->belongsTo(Bidang::class);
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function subunit()
+    {
+        return $this->belongsTo(SubUnit::class);
+    }
+
+    public function upb()
+    {
+        return $this->belongsTo(Upb::class);
+    }
 }

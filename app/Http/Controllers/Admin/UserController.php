@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Bidang;
 use App\Models\History;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -29,28 +30,37 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::latest()->get();
-        return view('admin.user.create', compact('roles'));
+        $bidang = Bidang::all();
+        return view('admin.user.create', compact('roles','bidang'));
     }
 
     public function store(Request $request)
     {
         $this->validate($request, [
             'nama_lengkap'  => 'required',
+            'foto'          => 'required|image|mimes:jpeg,jpg,png|max:2000',
             'name'      => 'required|unique:users',
             'email'     => 'required|email|unique:users',
             'password'  => 'required|confirmed'
         ]);
-
+        $image = $request->file('foto');
+        $image->storeAs('public/users', $image->hashName());
         $user = User::create([
             'nama_lengkap' => $request->input('nama_lengkap'),
+            'foto' => $image->hashName(),
             'name'      => $request->input('name'),
             'email'     => $request->input('email'),
-            'password'  => bcrypt($request->input('password'))
+            'password'  => bcrypt($request->input('password')),
+            'bidang_id'     => $request->input('bidang_id'),
+            'unit_id'     => $request->input('unit_id'),
+            'subunit_id'     => $request->input('subunit_id'),
+            'upb_id'     => $request->input('upb_id'),
+
         ]);
 
         History::create([
             'fk_admin_id' => Auth::user()->id,
-            'aksi' => "update data $user->name ",
+            'aksi' => "Tambah data user $user->name ",
 
         ]);
 
