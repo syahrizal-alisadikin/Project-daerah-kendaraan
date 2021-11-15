@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\SubUnit;
+use App\Models\Tanah;
 use App\Models\Unit;
 use App\Models\Upb;
 use App\Models\User;
@@ -36,5 +37,11 @@ class ApiController extends Controller
         $user = User::with('bidang','unit','subunit','upb')->findOrFail($id);
         return response()->json($user);
 
+    }
+
+    public function ApiTanah($id)
+    {
+        $tanah = Tanah::with('user.bidang','user.unit','user.subunit','user.upb')->findOrFail($id);
+        return response()->json($tanah);
     }
 }

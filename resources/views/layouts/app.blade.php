@@ -92,12 +92,12 @@
                         </li>
 
                          <li
-                            class="dropdown {{ setActive('admin/pinjam-luas-tanah'). setActive('admin/pinjam-kendaraan') }}">
+                            class="dropdown {{ setActive('admin/pinjam-tanah'). setActive('admin/pinjam-kendaraan') }}">
                                 <a href="#" class="nav-link has-dropdown"> <i class="fas fa-folder"></i><span>Pinjam Pakai</span></a>
                             
                             <ul class="dropdown-menu">
-                                    <li class="{{ setActive('admin/pinjam-luas-tanah') }}"><a class="nav-link"
-                                        href="{{ route('admin.tanah.index') }}">Tanah</a>
+                                    <li class="{{ setActive('admin/pinjam-tanah') }}"><a class="nav-link"
+                                        href="{{ route('admin.pinjam-tanah.index') }}">Tanah</a>
                                 </li>
                                     <li class="{{ setActive('admin/pinjam-kendaraan') }}"><a class="nav-link"
                                         href="{{ route('admin.role.index') }}">Kendaraan</a>

@@ -4,25 +4,25 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Tanah</h1>
+            <h1>Pinjam Tanah</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-book"></i> Tanah</h4>
+                    <h4><i class="fas fa-book"></i>Pinjam Tanah</h4>
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('admin.tanah.index') }}" method="GET">
+                    <form action="{{ route('admin.pinjam-tanah.index') }}" method="GET">
                         <div class="form-group">
                             <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('admin.tanah.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
+                                        <a href="{{ route('admin.pinjam-tanah.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
                                 <input type="text" class="form-control" name="q"
-                                       placeholder="cari berdasarkan nama tanah">
+                                       placeholder="cari berdasarkan nama No surat">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> CARI
                                     </button>
@@ -35,35 +35,37 @@
                             <thead>
                             <tr class="text-center">
                                 <th scope="col" style="width: 6%">NO.</th>
-                                @if(auth()->user()->can('pimpinan'))
-                                <th scope="col">Keberadaan</th>
-
-                                @endif
-                                <th scope="col">Tanah</th>
-                                <th scope="col">Harga</th>
-                                <th scope="col">Alamat</th>
+                                
+                                <th scope="col">No Surat</th>
+                                <th scope="col">Pemilik</th>
+                                <th scope="col">Peminjam</th>
+                                <th scope="col">Status</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
                             </thead>
                             <tbody>
                                 
-                                @forelse ($tanah as $item)
+                                @forelse ($pinjam as $item)
                                 <tr class="text-center">
                                     <td>{{ $loop->iteration }}</td>
 
-                                     @if(auth()->user()->can('pimpinan'))
-                                        <td scope="col">{{ $item->user->name }}</td>
+                                     
+                                    <td>{{ $item->no_surat }}</td>
 
-                                        @endif
-                                    <td>{{ $item->name }}</td>
-                                    <td>Rp{{ number_format($item->harga,0,",",".") }}</td>
-
-                                    <td>{{ $item->alamat }}</td>
+                                    <td>{{ $item->user->name }}</td>
+                                    <td>{{ $item->pinjam->name }}</td>
+                                    <td>{{ $item->status }}</td>
                                     
                                     <td class="text-center">
-                                            <a href="{{ route('admin.tanah.edit', $item->id) }}" class="btn btn-sm btn-primary">
+                                            <a href="javascript:void(0)" disabled class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
+
+                                            @if ($item->pinjam_id == Auth::user()->id)
+                                                <a href="javascript:void(0)" class="btn btn-sm btn-success">
+                                                <i class="fas fa-share"></i>
+                                            </a>
+                                            @endif
                                         
                                     </td>
                                 </tr>
@@ -77,8 +79,8 @@
                         </table>
                         
                     </div>
-                    <div style="float: right !important">
-                        {{$tanah->links("vendor.pagination.bootstrap-4")}}
+                     <div style="float: right !important">
+                        {{$pinjam->links("vendor.pagination.bootstrap-4")}}
                     </div>
                 </div>
             </div>

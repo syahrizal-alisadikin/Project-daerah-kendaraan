@@ -19,6 +19,7 @@ Route::get('/unit/{id}',[ApiController::class,'ApiUnit']);
 Route::get('/subunit/{id}',[ApiController::class,'ApiSubUnit']);
 Route::get('/upb/{id}',[ApiController::class,'ApiUpb']);
 Route::get('/user/{id}',[ApiController::class,'ApiUser']);
+Route::get('/tanah/{id}',[ApiController::class,'ApiTanah']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });

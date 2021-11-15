@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\KendaraanController;
 use App\Http\Controllers\Admin\LuasTanahController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PinjamTanahController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SubUnitController;
 use App\Http\Controllers\Admin\UnitController;
@@ -36,8 +37,10 @@ Route::prefix('admin')->group(function () {
 
         //dashboard
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
-        // Luas tanah
+        //  tanah
         Route::resource('/tanah', LuasTanahController::class,['except' => ['show'] ,'as' => 'admin']);
+        // Pinjam  tanah
+        Route::resource('/pinjam-tanah', PinjamTanahController::class,['except' => ['show'] ,'as' => 'admin']);
 
         Route::resource('/gedung', GedungController::class,['except' => ['show'] ,'as' => 'admin']);
     //    Kendaraan

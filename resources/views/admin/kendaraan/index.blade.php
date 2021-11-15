@@ -77,6 +77,9 @@
                         </table>
                         
                     </div>
+                     <div style="float: right !important">
+                        {{$kendaraan->links("vendor.pagination.bootstrap-4")}}
+                    </div>
                 </div>
             </div>
         </div>
