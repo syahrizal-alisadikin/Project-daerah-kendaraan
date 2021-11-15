@@ -11,4 +11,9 @@ class Kendaraan extends Model
     use HasFactory,SoftDeletes;
     protected $table = "kendaraan";
     protected $guarded = ['id'];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

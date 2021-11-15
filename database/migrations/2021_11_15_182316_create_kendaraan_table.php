@@ -15,24 +15,21 @@ class CreateKendaraanTable extends Migration
     {
         Schema::create('kendaraan', function (Blueprint $table) {
             $table->id();
-            $table->string('kode_barang');
+             $table->string('kode_barang');
             $table->string('register');
-            $table->string('jenis_kendaraan');
-            $table->string('no_polisi');
-            $table->string('merk_type');
-            $table->string('warna');
-            $table->string('bpkb');
-            $table->string('no_chasis');
-            $table->string('no_mesin');
-            $table->string('bahan_bakar');
-            $table->string('asal_usul');
-            $table->date('tahun_beli');
-            $table->string('kapasitas_cc');
-            $table->date('tgl_bayar_pajak');
-            $table->string('keadaan');
-            $table->string('type_roda');
+            $table->char('tahun_perolehan');
             $table->integer('harga');
+            $table->string('merk');
+            $table->string('type');
+            $table->string('no_polisi');
+            $table->string('no_rangka');
+            $table->string('no_mesin');
+            $table->string('no_bpkb');
+            $table->date('masa_berlaku_stnk');
+            $table->string('user_id');
+            $table->string('type_roda');
             $table->text('keterangan');
+            $table->string('status');
             $table->text('foto');
             $table->string('file');
             $table->softDeletes();

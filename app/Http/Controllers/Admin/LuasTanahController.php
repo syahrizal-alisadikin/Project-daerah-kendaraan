@@ -137,7 +137,7 @@ class LuasTanahController extends Controller
             'kecamatan'     => $request->kecamatan,
             'keterangan'     => $request->keterangan,
             'foto'          => $request->file('foto') != null ? $foto->hashName() : $tanah->foto,
-            'file'          => $request->file('fofileto') != null ? $file->hashName() : $tanah->file,
+            'file'          => $request->file('file') != null ? $file->hashName() : $tanah->file,
         ]);
 
         History::create([

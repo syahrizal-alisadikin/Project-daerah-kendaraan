@@ -56,7 +56,8 @@
 
                                         @endif
                                     <td>{{ $item->name }}</td>
-                                    <td>{{ $item->harga }}</td>
+                                    <td>Rp{{ number_format($item->harga,0,",",".") }}</td>
+
                                     <td>{{ $item->alamat }}</td>
                                     
                                     <td class="text-center">

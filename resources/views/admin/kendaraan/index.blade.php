@@ -24,7 +24,7 @@
                                     </div>
                                 @endcan
                                 <input type="text" class="form-control" name="q"
-                                       placeholder="cari berdasarkan nama gedung">
+                                       placeholder="cari berdasarkan No Polisi">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> CARI
                                     </button>
@@ -37,14 +37,42 @@
                             <thead>
                             <tr class="text-center">
                                 <th scope="col" style="width: 6%">NO.</th>
-                                <th scope="col">Nama Kendaraan</th>
+                                @if(auth()->user()->can('pimpinan'))
+                                <th scope="col">Keberadaan</th>
+
+                                @endif
+                                <th scope="col">No Polisi</th>
                                 <th scope="col">Harga</th>
-                                <th scope="col">Alamat</th>
+                                <th scope="col">Merk</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
                             </thead>
                             <tbody>
-                          
+                                @forelse ($kendaraan as $item)
+                                <tr class="text-center">
+                                    <td>{{ $loop->iteration }}</td>
+
+                                     @if(auth()->user()->can('pimpinan'))
+                                        <td scope="col">{{ $item->user->name }}</td>
+
+                                        @endif
+                                    <td>{{ $item->no_polisi }}</td>
+                                    <td>Rp{{ number_format($item->harga,0,",",".") }}</td>
+                                    <td>{{ $item->merk }}</td>
+                                    
+                                    <td class="text-center">
+                                            <a href="{{ route('admin.kendaraan.edit', $item->id) }}" class="btn btn-sm btn-primary">
+                                                <i class="fa fa-pencil-alt"></i>
+                                            </a>
+                                        
+                                    </td>
+                                </tr>
+                               
+                                @empty
+                                    <tr class="text-center">
+                                        <td colspan="5">Belum ada data</td>
+                                    </tr>
+                                @endforelse
                             </tbody>
                         </table>
                         
