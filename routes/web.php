@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\GedungController;
 use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\KendaraanController;
 use App\Http\Controllers\Admin\LuasTanahController;
+use App\Http\Controllers\Admin\MutasiTanahController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PinjamKendaraanController;
 use App\Http\Controllers\Admin\PinjamTanahController;
@@ -50,6 +51,9 @@ Route::prefix('admin')->group(function () {
         // Pinjam Kendaraan
         Route::resource('/pinjam-kendaraan', PinjamKendaraanController::class,['except' => ['show'] ,'as' => 'admin']);
         route::POST('/pinjam-kendaraan/kembali-kendaraan/{id}',[PinjamKendaraanController::class,'kembaliKendaraan'])->name('kembali-tanah');
+
+        // Mutasi Tanah
+        Route::resource('/mutasi-tanah', MutasiTanahController::class,['except' => ['show'] ,'as' => 'admin']);
 
         //permissions
         Route::resource('/permission', PermissionController::class, ['except' => ['show',  'delete'] ,'as' => 'admin']);

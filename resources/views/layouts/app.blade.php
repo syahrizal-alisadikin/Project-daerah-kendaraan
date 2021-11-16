@@ -107,16 +107,33 @@
                             </ul>
                         </li>
                         
-                        @can('mutasi_aset')
+                        {{-- @can('mutasi_aset') --}}
 
-                         <li class="{{ setActive('admin/mutasi-asset') }}">
+                         {{-- <li class="{{ setActive('admin/mutasi-asset') }}">
                             <a class="nav-link"
                                 href="{{ route('admin.dashboard.index') }}">
                                 <i class="fas fa-book-open"></i>
                                 <span>Mutasi Asset</span>
                             </a>
+                        </li> --}}
+                        <li
+                            class="dropdown {{ setActive('admin/mutasi-tanah'). setActive('admin/mutasi-kendaraan') }}">
+                                <a href="#" class="nav-link has-dropdown"><i class="fas fa-book-open"></i>
+                                <span>Mutasi Asset</span></a>
+                            
+                            <ul class="dropdown-menu">
+                                    <li class="{{ setActive('admin/mutasi-tanah') }}"><a class="nav-link"
+                                        href="{{ route('admin.mutasi-tanah.index') }}">Tanah</a>
+                                </li>
+                                    <li class="{{ setActive('admin/mutasi-kendaraan') }}"><a class="nav-link"
+                                        href="{{ route('admin.pinjam-kendaraan.index') }}">Kendaraan</a>
+                                </li>
+
+                              
+                            </ul>
                         </li>
-                        @endcan
+                        
+                        {{-- @endcan --}}
                         
                         {{-- @can('gallery_aset')
 

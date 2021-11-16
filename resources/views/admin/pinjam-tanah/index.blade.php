@@ -78,7 +78,7 @@
                                
                                 @empty
                                     <tr class="text-center">
-                                        <td colspan="5">Belum ada data</td>
+                                        <td colspan="6">Belum ada data</td>
                                     </tr>
                                 @endforelse
                             </tbody>

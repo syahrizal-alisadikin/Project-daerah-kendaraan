@@ -41,6 +41,7 @@
                                 @endif
                                 <th scope="col">Tanah</th>
                                 <th scope="col">Harga</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Alamat</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
@@ -58,6 +59,11 @@
                                     <td>{{ $item->name }}</td>
                                     <td>Rp{{ number_format($item->harga,0,",",".") }}</td>
 
+                                    <td>@if ($item->status == "ada")
+                                        <span class="badge badge-primary">Ada</span>
+                                        @else
+                                        <span class="badge badge-warning">Dipinjam</span>
+                                        @endif</td>
                                     <td>{{ $item->alamat }}</td>
                                     
                                     <td class="text-center">

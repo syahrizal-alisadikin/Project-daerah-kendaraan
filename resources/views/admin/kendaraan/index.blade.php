@@ -43,6 +43,7 @@
                                 @endif
                                 <th scope="col">No Polisi</th>
                                 <th scope="col">Harga</th>
+                                <th scope="col">Status</th>
                                 <th scope="col">Merk</th>
                                 <th scope="col" style="width: 15%;text-align: center">AKSI</th>
                             </tr>
@@ -58,6 +59,13 @@
                                         @endif
                                     <td>{{ $item->no_polisi }}</td>
                                     <td>Rp{{ number_format($item->harga,0,",",".") }}</td>
+                                    <td>
+                                        @if ($item->status == "ada")
+                                        <span class="badge badge-primary">Ada</span>
+                                        @else
+                                        <span class="badge badge-warning">Dipinjam</span>
+                                        @endif
+                                    </td>
                                     <td>{{ $item->merk }}</td>
                                     
                                     <td class="text-center">

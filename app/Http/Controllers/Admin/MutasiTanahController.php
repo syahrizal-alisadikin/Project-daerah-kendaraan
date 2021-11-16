@@ -4,13 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\History;
-use App\Models\Kendaraan;
-use App\Models\PinjamKendaraan;
+use App\Models\MutasiTanah;
+use App\Models\Tanah;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class PinjamKendaraanController extends Controller
+class MutasiTanahController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,19 +21,20 @@ class PinjamKendaraanController extends Controller
     {
         if(auth()->user()->can('pimpinan')){
 
-            $pinjam = PinjamKendaraan::when(request()->q, function($kendaraan) {
-            $kendaraan = $kendaraan->where('no_polisi', 'like', '%'. request()->q . '%');
-        })->with('user','pinjam')->paginate(10);
+            $mutasi = MutasiTanah::when(request()->q, function($query) {
+            $query = $query->where('no_surat', 'like', '%'. request()->q . '%');
+        })->with('user','mutasi')->paginate(10);
         }else{
-            $pinjam = PinjamKendaraan::when(request()->q, function($kendaraan) {
-            $kendaraan = $kendaraan->where('no_polisi', 'like', '%'. request()->q . '%');
-            })->where(function ($query) {
+            $mutasi = MutasiTanah::when(request()->q, function($mutasi) {
+            $mutasi = $mutasi->where('no_surat', 'like', '%'. request()->q . '%');
+        })->where(function ($query) {
                 $query->where('user_id', '=', Auth::user()->id)
-                    ->orWhere('pinjam_id', '=', Auth::user()->id);
-            })->with('user','pinjam')->paginate(10);
+                    ->orWhere('mutasi_id', '=', Auth::user()->id);
+            })->with('user','mutasi')->paginate(10);
 
         }
-        return view('admin.pinjam-kendaraan.index',compact('pinjam'));
+
+        return view('admin.mutasi-tanah.index',compact('mutasi'));
     }
 
     /**
@@ -44,11 +45,11 @@ class PinjamKendaraanController extends Controller
     public function create()
     {
         if(auth()->user()->can('pimpinan')){
-            $kendaraan = Kendaraan::with('user')->where('status','ada')->get();
+            $tanah = Tanah::with('user')->where('status','ada')->get();
         }else{
-            $kendaraan = Kendaraan::where('user_id',Auth::user()->id)->where('status','ada')->get();
+            $tanah = Tanah::where('user_id',Auth::user()->id)->where('status','ada')->get();
         }
-        // User
+        
 
         if(auth()->user()->can('pimpinan')){
             $user = User::whereNotnull('bidang_id')->get();
@@ -56,7 +57,7 @@ class PinjamKendaraanController extends Controller
             $user = User::whereNot('user_id',Auth::user()->id)->whereNotnull('bidang_id')->get();
         }
 
-        return view('admin.pinjam-kendaraan.create',compact('kendaraan','user'));
+        return view('admin.mutasi-tanah.create',compact('tanah','user'));
     }
 
     /**
@@ -70,43 +71,40 @@ class PinjamKendaraanController extends Controller
         $this->validate($request, [
             'foto'          => 'required|image|mimes:jpeg,jpg,png|max:2000',
             'file'          => 'required|mimes:pdf|max:10000',
-            'no_surat'      =>'required|unique:pinjam_kendaraans,no_surat'
+            'no_surat'      =>'required|unique:mutasi_tanahs,no_surat'
            
         ],
         [
             'file.mimes' => "File Harus PDF"
         ]);
-
-          // simpan foto
+        // simpan foto
         $foto = $request->file('foto');
-        $foto->storeAs('public/pinjamkendaraan', $foto->hashName());
+        $foto->storeAs('public/pinjamtanah', $foto->hashName());
         // simpan file
         $file = $request->file('file');
-        $file->storeAs('public/pinjamkendaraan', $file->hashName());
+        $file->storeAs('public/pinjamtanah', $file->hashName());
+        // update tanah
+        $tanah = Tanah::findOrFail($request->tanah_id);
+        $tanah->update(['status' => "diproses"]);
 
-        // Update status Tanah Jadi di pinjam
-        $tanah = Kendaraan::findOrFail($request->kendaraan_id);
-        $tanah->update(['status' => "dipinjam"]);
-
-        $pinjam = PinjamKendaraan::create([
-            'kendaraan_id'      => $tanah->id,
+        $mutasi = MutasiTanah::create([
+            'tanah_id'      => $tanah->id,
             'user_id'       => $request->user_id,
-            'pinjam_id'     => $request->pinjam_id,
+            'mutasi_id'     => $request->mutasi_id,
             'no_surat'      => $request->no_surat,
             'tgl_surat'     => $request->tgl_surat,
-            'tgl_pinjam'    => $request->tgl_pinjam,
-            // 'tgl_kembali'   => $request->tgl_kembali,
-            'status'        => "dipinjam",
+            'keterangan'    => $request->keterangan,
+            'status'        => "pending",
             'foto'          => $foto->hashName(),
             'file'          => $file->hashName(),
         ]);
-        
+
         History::create([
             'fk_admin_id' => Auth::user()->id,
-            'aksi' => "Tambah data Pinjam kendaraan $pinjam->no_surat ",
-
+            'aksi' => "Tambah data Mutasi tanah $mutasi->no_surat ",
         ]);
-        return redirect()->route('admin.pinjam-kendaraan.index')->with('success','data berhasil ditambahkan!!');
+        return redirect()->route('admin.mutasi-tanah.index')->with('success','data berhasil ditambahkan!!');
+
     }
 
     /**
@@ -152,29 +150,5 @@ class PinjamKendaraanController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    public function kembaliKendaraan($id)
-    {
-        
-        $pinjamkendaraan = PinjamKendaraan::findOrFail($id);
-        // return $pinjamkendaraan;
-        $kendaraan = Kendaraan::findOrFail($pinjamkendaraan->kendaraan_id);
-        $kendaraan->update(['status' => 'ada']);
-
-        $pinjamkendaraan->update([
-            'status' => "dikembalikan",
-            'tgl_kembali' => date('Y-m-d')
-        ]);
-
-       if($pinjamkendaraan){
-            return response()->json([
-                'status' => 'success'
-            ]);
-        }else{
-            return response()->json([
-                'status' => 'error'
-            ]);
-        }
     }
 }

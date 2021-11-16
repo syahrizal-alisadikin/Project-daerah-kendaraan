@@ -21,9 +21,13 @@ class PinjamTanahController extends Controller
     {
         if(auth()->user()->can('pimpinan')){
 
-            $pinjam = PinjamTanah::with('user','pinjam')->paginate(10);
+            $pinjam = PinjamTanah::when(request()->q, function($tanah) {
+            $tanah = $tanah->where('no_surat', 'like', '%'. request()->q . '%');
+        })->with('user','pinjam')->paginate(10);
         }else{
-            $pinjam = PinjamTanah::where(function ($query) {
+            $pinjam = PinjamTanah::when(request()->q, function($tanah) {
+            $tanah = $tanah->where('no_surat', 'like', '%'. request()->q . '%');
+        })->where(function ($query) {
                 $query->where('user_id', '=', Auth::user()->id)
                     ->orWhere('pinjam_id', '=', Auth::user()->id);
             })->with('user','pinjam')->paginate(10);
