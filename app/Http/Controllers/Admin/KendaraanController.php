@@ -37,6 +37,7 @@ class KendaraanController extends Controller
          $this->validate($request, [
             'foto'          => 'required|image|mimes:jpeg,jpg,png|max:2000',
             'file'          => 'required|mimes:pdf|max:10000',
+            'no_polisi'     => 'required|unique:kendaraan,no_polisi'
             ],
             [
                 'file.mimes' => "File Harus PDF"

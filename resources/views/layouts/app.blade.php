@@ -100,7 +100,7 @@
                                         href="{{ route('admin.pinjam-tanah.index') }}">Tanah</a>
                                 </li>
                                     <li class="{{ setActive('admin/pinjam-kendaraan') }}"><a class="nav-link"
-                                        href="{{ route('admin.role.index') }}">Kendaraan</a>
+                                        href="{{ route('admin.pinjam-kendaraan.index') }}">Kendaraan</a>
                                 </li>
 
                               

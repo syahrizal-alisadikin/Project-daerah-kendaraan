@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\KendaraanController;
 use App\Http\Controllers\Admin\LuasTanahController;
 use App\Http\Controllers\Admin\PermissionController;
+use App\Http\Controllers\Admin\PinjamKendaraanController;
 use App\Http\Controllers\Admin\PinjamTanahController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\SubUnitController;
@@ -41,10 +42,14 @@ Route::prefix('admin')->group(function () {
         Route::resource('/tanah', LuasTanahController::class,['except' => ['show'] ,'as' => 'admin']);
         // Pinjam  tanah
         Route::resource('/pinjam-tanah', PinjamTanahController::class,['except' => ['show'] ,'as' => 'admin']);
-
+        route::POST('/pinjam-tanah/kembali-tanah/{id}',[PinjamTanahController::class,'kembaliTanah'])->name('kembali-tanah');
+        
         Route::resource('/gedung', GedungController::class,['except' => ['show'] ,'as' => 'admin']);
-    //    Kendaraan
+        //    Kendaraan
         Route::resource('/kendaraan', KendaraanController::class,['except' => ['show'] ,'as' => 'admin']);
+        // Pinjam Kendaraan
+        Route::resource('/pinjam-kendaraan', PinjamKendaraanController::class,['except' => ['show'] ,'as' => 'admin']);
+        route::POST('/pinjam-kendaraan/kembali-kendaraan/{id}',[PinjamKendaraanController::class,'kembaliKendaraan'])->name('kembali-tanah');
 
         //permissions
         Route::resource('/permission', PermissionController::class, ['except' => ['show',  'delete'] ,'as' => 'admin']);

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePinjamTanahsTable extends Migration
+class CreatePinjamKendaraansTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreatePinjamTanahsTable extends Migration
      */
     public function up()
     {
-        Schema::create('pinjam_tanahs', function (Blueprint $table) {
+        Schema::create('pinjam_kendaraans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('tanah_id');
+            $table->unsignedBigInteger('kendaraan_id');
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('pinjam_id');
             $table->text('foto');
@@ -37,6 +37,6 @@ class CreatePinjamTanahsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pinjam_tanahs');
+        Schema::dropIfExists('pinjam_kendaraans');
     }
 }

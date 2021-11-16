@@ -72,7 +72,7 @@
                              <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Type Roda</label>
-                                    <select name="type_roda" id="" class="form-control">
+                                    <select name="type_roda" id="" class="form-control" required>
                                         <option value="Roda 2">Roda 2</option>
                                         <option value="Roda 3">Roda 3</option>
                                         <option value="Roda 4">Roda 4</option>
@@ -83,7 +83,7 @@
                                 <div class="form-group">
                                     <label>Kode Barang</label>
                                     <input type="text" name="kode_barang" value="{{ old('kode_barang') }}" placeholder="Masukkan Kode"
-                                        class="form-control @error('kode_barang') is-invalid @enderror">
+                                        class="form-control @error('kode_barang') is-invalid @enderror"  required>
         
                                     @error('kode_barang')
                                     <div class="invalid-feedback" style="display: block">
@@ -96,14 +96,19 @@
                                 <div class="form-group">
                                     <label>Register</label>
                                     <input type="number" name="register" value="{{ old('register') }}" placeholder="Masukkan Register"
-                                        class="form-control">
+                                        class="form-control @error('register') is-invalid @enderror" required>
+                                        @error('register')
+                                    <div class="invalid-feedback" style="display: block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Tahun Perolehan</label>
-                                    <Select name="tahun_perolehan" class="form-control">
+                                    <Select name="tahun_perolehan" class="form-control" required>
                                         <option value="1990">1990</option>
                                         <option value="1991">1991</option>
                                         <option value="1992">1992</option>
@@ -152,7 +157,7 @@
                                 <div class="form-group">
                                     <label>Harga</label>
                                     <input type="number" name="harga" value="{{ old('harga') }}" placeholder="Masukkan Harga "
-                                        class="form-control @error('jenis_aset') is-invalid @enderror">
+                                        class="form-control @error('harga') is-invalid @enderror" required>
         
                                     @error('harga')
                                     <div class="invalid-feedback" style="display: block">
@@ -165,22 +170,37 @@
                                 <div class="form-group">
                                     <label>Merk</label>
                                     <input type="text" name="merk" value="{{ old('merk') }}" placeholder="Masukkan Merk"
-                                        class="form-control">
+                                        class="form-control @error('merk') is-invalid @enderror" required>
+                                        @error('merk')
+                                    <div class="invalid-feedback" style="display: block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Type</label>
                                     <input type="text" name="type" value="{{ old('type') }}" placeholder="Masukkan Type"
-                                        class="form-control">
+                                        class="form-control @error('type') is-invalid @enderror" required>
+                                        @error('type')
+                                    <div class="invalid-feedback" style="display: block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>No Polisi</label>
                                     <input type="text" name="no_polisi" value="{{ old('no_polisi') }}" 
-                                        class="form-control" placeholder="Masukan No Polisi">
-                                </div>
+                                        class="form-control @error('no_polisi') is-invalid @enderror" placeholder="Masukan No Polisi" required>
+                                @error('no_polisi')
+                                    <div class="invalid-feedback" style="display: block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
+                                    </div>
                             </div>
                              
                         </div>
@@ -193,14 +213,19 @@
                                 <div class="form-group">
                                     <label>No Rangka</label>
                                     <input type="text" name="no_rangka" value="{{ old('no_rangka') }}" placeholder="Masukkan No Rangka"
-                                        class="form-control">
+                                        class="form-control @error('no_rangka') is-invalid @enderror" required>
+                                    @error('no_rangka')
+                                    <div class="invalid-feedback" style="display: block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>No Mesin</label>
                                     <input type="number" name="no_mesin" value="{{ old('no_mesin') }}" placeholder="Masukkan No Mesin "
-                                        class="form-control @error('jenis_aset') is-invalid @enderror">
+                                        class="form-control @error('no_mesin') is-invalid @enderror" required>
         
                                     @error('no_mesin')
                                     <div class="invalid-feedback" style="display: block">
@@ -215,14 +240,19 @@
                                 <div class="form-group">
                                     <label>No BPKB</label>
                                     <input type="text" name="no_bpkb" value="{{ old('no_bpkb') }}" placeholder="Masukkan No Bpkb "
-                                        class="form-control">
+                                        class="form-control @error('no_bpkb') is-invalid @enderror" required>
+                                        @error('no_bpkb')
+                                    <div class="invalid-feedback" style="display: block">
+                                        {{ $message }}
+                                    </div>
+                                    @enderror
                                 </div>
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
                                     <label>Masa berlaku STNK</label>
                                     <input type="date" name="masa_berlaku_stnk" value="{{ old('masa_berlaku_stnk') }}" 
-                                        class="form-control" placeholder="Masukkan bertingkat">
+                                        class="form-control" placeholder="Masukkan bertingkat" required>
                                 </div>
                             </div>
                         </div>
@@ -239,7 +269,7 @@
                              <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Keterangan</label>
-                                    <textarea name="keterangan" class="form-control" placeholder="Masukan Keterangan" id="" cols="30" rows="10">{{ old('keterangan') }}</textarea>
+                                    <textarea name="keterangan" required class="form-control" placeholder="Masukan Keterangan" id="" cols="30" rows="10">{{ old('keterangan') }}</textarea>
                                 </div>
                             </div>
                         </div>

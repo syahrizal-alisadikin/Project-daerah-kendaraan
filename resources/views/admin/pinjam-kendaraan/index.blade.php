@@ -4,22 +4,22 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Pinjam Tanah</h1>
+            <h1>Pinjam Kendaraan</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-book"></i>Pinjam Tanah</h4>
+                    <h4><i class="fas fa-book"></i>Pinjam Kendaraan</h4>
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('admin.pinjam-tanah.index') }}" method="GET">
+                    <form action="{{ route('admin.pinjam-kendaraan.index') }}" method="GET">
                         <div class="form-group">
                             <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('admin.pinjam-tanah.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
+                                        <a href="{{ route('admin.pinjam-kendaraan.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
                                 <input type="text" class="form-control" name="q"
                                        placeholder="cari berdasarkan nama No surat">
@@ -59,26 +59,26 @@
                                     <td class="text-center">
                                             @if ($item->user_id == Auth::user()->id)
 
-                                            <a href="{{ route('admin.pinjam-tanah.edit',$item->id) }}"  class="btn btn-sm btn-primary">
+                                            <a href="{{ route('admin.pinjam-kendaraan.edit',$item->id) }}"  class="btn btn-sm btn-primary">
                                                 <i class="fa fa-pencil-alt"></i>
                                             </a>
                                             @endif
 
-                                            @if ($item->pinjam_id == Auth::user()->id)
+                                            {{-- @if ($item->pinjam_id == Auth::user()->id) --}}
                                                 @if ($item->status == "dipinjam")
                                                     
                                                 <a href="javascript:void(0)" onClick="Kembali(this.id)" id="{{ $item->id }}" class="btn btn-sm btn-success">
                                                 <i class="fas fa-share"></i>
                                             </a>
                                                 @endif
-                                            @endif
+                                            {{-- @endif --}}
                                         
                                     </td>
                                 </tr>
                                
                                 @empty
                                     <tr class="text-center">
-                                        <td colspan="5">Belum ada data</td>
+                                        <td colspan="6">Belum ada data</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -105,7 +105,7 @@
 
             swal({
                 title: "APAKAH KAMU YAKIN ?",
-                text: "INGIN MENGEMBALIKAN TANAH INI!",
+                text: "INGIN MENGEMBALIKAN KENDARAAN INI!",
                 icon: "warning",
                 buttons: [
                     'TIDAK',
@@ -117,7 +117,7 @@
 
                     //ajax delete
                     jQuery.ajax({
-                        url: "{{ url("admin/pinjam-tanah/kembali-tanah") }}/"+id,
+                        url: "{{ url("admin/pinjam-kendaraan/kembali-kendaraan") }}/"+id,
                         data:   {
                             "id": id,
                             "_token": token
@@ -129,7 +129,7 @@
                                     title: 'BERHASIL!',
                                     text: 'DATA BERHASIL DIKEMBALIKAN!',
                                     icon: 'success',
-                                    timer: 2000,
+                                    timer: 3000,
                                     showConfirmButton: false,
                                     showCancelButton: false,
                                     buttons: false,
@@ -141,7 +141,7 @@
                                     title: 'GAGAL!',
                                     text: 'DATA GAGAL DIEKMBALIKAN!',
                                     icon: 'error',
-                                    timer: 2000,
+                                    timer: 3000,
                                     showConfirmButton: false,
                                     showCancelButton: false,
                                     buttons: false,

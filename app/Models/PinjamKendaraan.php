@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class PinjamTanah extends Model
+class PinjamKendaraan extends Model
 {
     use HasFactory,SoftDeletes;
     protected $guarded = ['id'];
-
-    public function user()
+     public function user()
     {
         return $this->belongsTo(User::class);
     }
@@ -19,10 +18,5 @@ class PinjamTanah extends Model
     public function pinjam()
     {
         return $this->belongsTo(User::class,'pinjam_id','id');
-    }
-
-    public function tanah()
-    {
-        return $this->belongsTo(Tanah::class);
     }
 }

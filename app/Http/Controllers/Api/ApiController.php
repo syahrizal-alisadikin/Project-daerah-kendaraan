@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kendaraan;
 use App\Models\SubUnit;
 use App\Models\Tanah;
 use App\Models\Unit;
@@ -43,5 +44,12 @@ class ApiController extends Controller
     {
         $tanah = Tanah::with('user.bidang','user.unit','user.subunit','user.upb')->findOrFail($id);
         return response()->json($tanah);
+    }
+
+    public function ApiKendaraan($id)
+    {
+        $kendaraan = Kendaraan::with('user.bidang','user.unit','user.subunit','user.upb')->findOrFail($id);
+        return response()->json($kendaraan);
+        
     }
 }

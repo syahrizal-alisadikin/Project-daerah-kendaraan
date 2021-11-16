@@ -66,6 +66,7 @@ class PinjamTanahController extends Controller
         $this->validate($request, [
             'foto'          => 'required|image|mimes:jpeg,jpg,png|max:2000',
             'file'          => 'required|mimes:pdf|max:10000',
+            'no_surat'      =>'required|unique:pinjam_tanahs,no_surat'
            
         ],
         [
@@ -73,10 +74,10 @@ class PinjamTanahController extends Controller
         ]);
         // simpan foto
         $foto = $request->file('foto');
-        $foto->storeAs('public/tanah', $foto->hashName());
+        $foto->storeAs('public/pinjamtanah', $foto->hashName());
         // simpan file
         $file = $request->file('file');
-        $file->storeAs('public/tanah', $file->hashName());
+        $file->storeAs('public/pinjamtanah', $file->hashName());
 
         // Update status Tanah Jadi di pinjam
         $tanah = Tanah::findOrFail($request->tanah_id);
@@ -89,7 +90,7 @@ class PinjamTanahController extends Controller
             'no_surat'      => $request->no_surat,
             'tgl_surat'     => $request->tgl_surat,
             'tgl_pinjam'    => $request->tgl_pinjam,
-            'tgl_kembali'   => $request->tgl_kembali,
+            // 'tgl_kembali'   => $request->tgl_kembali,
             'status'        => "dipinjam",
             'foto'          => $foto->hashName(),
             'file'          => $file->hashName(),
@@ -121,7 +122,20 @@ class PinjamTanahController extends Controller
      */
     public function edit($id)
     {
-        //
+        $pinjamTanah = PinjamTanah::with('tanah','user.bidang','user.unit','user.subunit','user.upb')->findOrFail($id);
+        if(auth()->user()->can('pimpinan')){
+            $tanah = Tanah::with('user')->where('status','ada')->get();
+        }else{
+            $tanah = Tanah::where('user_id',Auth::user()->id)->where('status','ada')->get();
+        }
+
+        if(auth()->user()->can('pimpinan')){
+            $user = User::whereNotnull('bidang_id')->get();
+        }else{
+            $user = User::whereNot('user_id',Auth::user()->id)->whereNotnull('bidang_id')->get();
+        }
+        return view('admin.pinjam-tanah.edit',compact('tanah','user','pinjamTanah'));
+
     }
 
     /**
@@ -133,7 +147,55 @@ class PinjamTanahController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // return $request->all();
+        $pinjamTanah = PinjamTanah::findOrFail($id);
+          if($request->file('foto')){
+            $this->validate($request, [
+            'foto'          => 'required|image|mimes:jpeg,jpg,png|max:2000',
+           
+        ],
+        [
+            'file.mimes' => "File Harus PDF"
+        ]);
+             // simpan foto
+        $foto = $request->file('foto');
+        $foto->storeAs('public/tanah', $foto->hashName());
+        
+        }
+
+        if( $request->file('file')){
+            // simpan file
+              $this->validate($request, [
+            'file'          => 'required|mimes:pdf|max:10000',
+                
+                ],
+            [
+                'file.mimes' => "File Harus PDF"
+            ]);
+        $file = $request->file('file');
+        $file->storeAs('public/tanah', $file->hashName());
+        }
+         $pinjamTanah->update([
+            'tanah_id'      => $request->tanah_id,
+            'user_id'       => $request->user_id,
+            'pinjam_id'     => $request->pinjam_id,
+            'no_surat'      => $request->no_surat,
+            'tgl_surat'     => $request->tgl_surat,
+            'tgl_pinjam'    => $request->tgl_pinjam,
+            // 'tgl_kembali'   => $request->tgl_kembali,
+            'status'        => $request->status,
+            'foto'          => $request->file('foto') != null ? $foto->hashName() : $pinjamTanah->foto,
+            'file'          => $request->file('file') != null ? $file->hashName() : $pinjamTanah->file,
+        ]);
+        History::create([
+            'fk_admin_id' => Auth::user()->id,
+            'aksi' => "update data Pinjam tanah $pinjamTanah->no_surat ",
+
+        ]);
+
+        return redirect()->route('admin.pinjam-tanah.index')->with('success','data berhasil diupdate!!');
+
+        
     }
 
     /**
@@ -145,5 +207,27 @@ class PinjamTanahController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function kembaliTanah($id)
+    {
+        $pinjamTanah = PinjamTanah::findOrFail($id);
+        $tanah = Tanah::findOrFail($pinjamTanah->tanah_id);
+        $tanah->update(['status' => 'ada']);
+
+        $pinjamTanah->update([
+            'status' => "dikembalikan",
+            'tgl_kembali' => date('Y-m-d')
+        ]);
+
+       if($pinjamTanah){
+            return response()->json([
+                'status' => 'success'
+            ]);
+        }else{
+            return response()->json([
+                'status' => 'error'
+            ]);
+        }
     }
 }

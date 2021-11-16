@@ -21,7 +21,7 @@
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Tanah</label>
-                                    <select name="tanah_id" id="tanah_id" class="form-control">
+                                    <select name="tanah_id" id="tanah_id" class="form-control" required>
                                         <option value="">Pilih Tanah</option>
                                         @foreach ($tanah as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -127,11 +127,11 @@
                             </div>
                             <div class="col-md-3">
                                 <div class="form-group">
-                                    <label>Tanggal Kembali</label>
-                                    <input type="date" name="tgl_kembali" value="{{ old('tgl_kembali') }}" 
-                                        class="form-control @error('tgl_kembali') is-invalid @enderror" required>
+                                    <label>Status</label>
+                                    <input type="text" name="stsatus" value="dipinjam" readonly 
+                                        class="form-control @error('status') is-invalid @enderror" required>
         
-                                    @error('tgl_kembali')
+                                    @error('status')
                                     <div class="invalid-feedback" style="display: block">
                                         {{ $message }}
                                     </div>
