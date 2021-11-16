@@ -85,7 +85,10 @@ class MutasiTanahController extends Controller
         $file->storeAs('public/pinjamtanah', $file->hashName());
         // update tanah
         $tanah = Tanah::findOrFail($request->tanah_id);
-        $tanah->update(['status' => "diproses"]);
+        $tanah->update([
+            'status' => "ada",
+            'user_id' => $request->mutasi_id
+        ]);
 
         $mutasi = MutasiTanah::create([
             'tanah_id'      => $tanah->id,
@@ -94,7 +97,7 @@ class MutasiTanahController extends Controller
             'no_surat'      => $request->no_surat,
             'tgl_surat'     => $request->tgl_surat,
             'keterangan'    => $request->keterangan,
-            'status'        => "pending",
+            'status'        => "success",
             'foto'          => $foto->hashName(),
             'file'          => $file->hashName(),
         ]);
