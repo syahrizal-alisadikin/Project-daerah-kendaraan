@@ -23,8 +23,8 @@ class SubUnitController extends Controller
     {
         $subunit = SubUnit::when(request()->q, function($subunit) {
             $subunit = $subunit->where('name', 'like', '%'. request()->q . '%');
-        })->with('unit.bidang')->whereHas('unit.bidang',function($query){
-            $query->orderBy('kode_unit');
+        })->with('unit.bidang')->whereHas('unit',function($query){
+            $query->orderBy('unit_id');
         })->orderBy('unit_id')->paginate(10);
         return view('admin.subunit.index',compact('subunit'));
     }
