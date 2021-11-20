@@ -20,7 +20,9 @@ class UnitController extends Controller
     {
         $units = Unit::when(request()->q, function($units) {
             $units = $units->where('name', 'like', '%'. request()->q . '%');
-        })->with('bidang')->paginate(10);
+        })->with('bidang')->whereHas('bidang',function($query){
+            $query->orderBy('kode_unit');
+        })->paginate(10);
         return view('admin.unit.index',compact('units'));
     }
 
