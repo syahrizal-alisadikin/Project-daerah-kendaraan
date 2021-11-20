@@ -23,7 +23,7 @@
                                         <a href="{{ route('admin.subunit.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
                                 @endcan
-                                <input type="text" class="form-control" name="q"
+                                <input type="text" class="form-control" value="{{ request()->q }}" name="q"
                                        placeholder="cari berdasarkan nama SubUnit">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> CARI

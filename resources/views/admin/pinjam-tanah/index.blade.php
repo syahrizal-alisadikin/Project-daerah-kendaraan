@@ -21,7 +21,7 @@
                                     <div class="input-group-prepend">
                                         <a href="{{ route('admin.pinjam-tanah.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
-                                <input type="text" class="form-control" name="q"
+                                <input type="text" class="form-control" value="{{ request()->q }}" name="q"
                                        placeholder="cari berdasarkan nama No surat">
                                 <div class="input-group-append">
                                     <button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> CARI
