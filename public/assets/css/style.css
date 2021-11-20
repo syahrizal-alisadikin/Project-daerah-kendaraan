@@ -1086,7 +1086,7 @@ table tr:hover .table-links {
   padding: 7px 12px;
   font-weight: 600;
   letter-spacing: .3px;
-  border-radius: 30px;
+  border-radius: 10px;
   font-size: 12px; }
   .badge.badge-warning {
     color: #fff; }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\GedungController;
 use App\Http\Controllers\Admin\HistoryController;
 use App\Http\Controllers\Admin\KendaraanController;
 use App\Http\Controllers\Admin\LuasTanahController;
+use App\Http\Controllers\Admin\MutasiKendaraanController;
 use App\Http\Controllers\Admin\MutasiTanahController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\PinjamKendaraanController;
@@ -54,6 +55,9 @@ Route::prefix('admin')->group(function () {
 
         // Mutasi Tanah
         Route::resource('/mutasi-tanah', MutasiTanahController::class,['except' => ['show'] ,'as' => 'admin']);
+
+        // Mutasi kendaraan
+        Route::resource('/mutasi-kendaraan', MutasiKendaraanController::class,['except' => ['show'] ,'as' => 'admin']);
 
         //permissions
         Route::resource('/permission', PermissionController::class, ['except' => ['show',  'delete'] ,'as' => 'admin']);

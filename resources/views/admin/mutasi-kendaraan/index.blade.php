@@ -4,22 +4,22 @@
 <div class="main-content">
     <section class="section">
         <div class="section-header">
-            <h1>Mutasi Tanah</h1>
+            <h1>Mutasi Kendaraan</h1>
         </div>
 
         <div class="section-body">
 
             <div class="card">
                 <div class="card-header">
-                    <h4><i class="fas fa-book"></i>Mutasi Tanah</h4>
+                    <h4><i class="fas fa-book"></i>Mutasi Kendaraan</h4>
                 </div>
 
                 <div class="card-body">
-                    <form action="{{ route('admin.mutasi-tanah.index') }}" method="GET">
+                    <form action="{{ route('admin.mutasi-kendaraan.index') }}" method="GET">
                         <div class="form-group">
                             <div class="input-group mb-3">
                                     <div class="input-group-prepend">
-                                        <a href="{{ route('admin.mutasi-tanah.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
+                                        <a href="{{ route('admin.mutasi-kendaraan.create') }}" class="btn btn-primary" style="padding-top: 10px;"><i class="fa fa-plus-circle"></i> TAMBAH</a>
                                     </div>
                                 <input type="text" class="form-control" name="q"
                                        placeholder="cari berdasarkan nama No surat">

@@ -126,7 +126,7 @@
                                         href="{{ route('admin.mutasi-tanah.index') }}">Tanah</a>
                                 </li>
                                     <li class="{{ setActive('admin/mutasi-kendaraan') }}"><a class="nav-link"
-                                        href="{{ route('admin.pinjam-kendaraan.index') }}">Kendaraan</a>
+                                        href="{{ route('admin.mutasi-kendaraan.index') }}">Kendaraan</a>
                                 </li>
 
                               

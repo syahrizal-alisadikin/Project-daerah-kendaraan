@@ -3,14 +3,14 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Kendaraan;
 use App\Models\History;
-use App\Models\MutasiTanah;
-use App\Models\Tanah;
 use App\Models\User;
+use App\Models\MutasiKendaraan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
-class MutasiTanahController extends Controller
+class MutasiKendaraanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,11 +21,11 @@ class MutasiTanahController extends Controller
     {
         if(auth()->user()->can('pimpinan')){
 
-            $mutasi = MutasiTanah::when(request()->q, function($query) {
+            $mutasi = MutasiKendaraan::when(request()->q, function($query) {
             $query = $query->where('no_surat', 'like', '%'. request()->q . '%');
         })->with('user','mutasi')->paginate(10);
         }else{
-            $mutasi = MutasiTanah::when(request()->q, function($mutasi) {
+            $mutasi = MutasiKendaraan::when(request()->q, function($mutasi) {
             $mutasi = $mutasi->where('no_surat', 'like', '%'. request()->q . '%');
         })->where(function ($query) {
                 $query->where('user_id', '=', Auth::user()->id)
@@ -34,7 +34,7 @@ class MutasiTanahController extends Controller
 
         }
 
-        return view('admin.mutasi-tanah.index',compact('mutasi'));
+        return view('admin.mutasi-kendaraan.index',compact('mutasi'));
     }
 
     /**
@@ -45,9 +45,9 @@ class MutasiTanahController extends Controller
     public function create()
     {
         if(auth()->user()->can('pimpinan')){
-            $tanah = Tanah::with('user')->where('status','ada')->get();
+            $kendaraan = Kendaraan::with('user')->where('status','ada')->get();
         }else{
-            $tanah = Tanah::where('user_id',Auth::user()->id)->where('status','ada')->get();
+            $kendaraan = Kendaraan::where('user_id',Auth::user()->id)->where('status','ada')->get();
         }
         
 
@@ -57,7 +57,7 @@ class MutasiTanahController extends Controller
             $user = User::whereNot('user_id',Auth::user()->id)->whereNotnull('bidang_id')->get();
         }
 
-        return view('admin.mutasi-tanah.create',compact('tanah','user'));
+        return view('admin.mutasi-kendaraan.create',compact('kendaraan','user'));
     }
 
     /**
@@ -71,27 +71,28 @@ class MutasiTanahController extends Controller
         $this->validate($request, [
             'foto'          => 'required|image|mimes:jpeg,jpg,png|max:2000',
             'file'          => 'required|mimes:pdf|max:10000',
-            'no_surat'      =>'required|unique:mutasi_tanahs,no_surat'
+            'no_surat'      =>'required|unique:mutasi_kendaraans,no_surat'
            
         ],
         [
             'file.mimes' => "File Harus PDF"
         ]);
-        // simpan foto
+
+     // simpan foto
         $foto = $request->file('foto');
-        $foto->storeAs('public/mutasitanah', $foto->hashName());
+        $foto->storeAs('public/mutasikendaraan', $foto->hashName());
         // simpan file
         $file = $request->file('file');
-        $file->storeAs('public/mutasitanah', $file->hashName());
-        // update tanah
-        $tanah = Tanah::findOrFail($request->tanah_id);
-        $tanah->update([
+        $file->storeAs('public/mutasikendaraan', $file->hashName());
+        // update KEndaraan
+        $kendaraan = Kendaraan::findOrFail($request->kendaraan_id);
+        $kendaraan->update([
             'status' => "ada",
             'user_id' => $request->mutasi_id
         ]);
 
-        $mutasi = MutasiTanah::create([
-            'tanah_id'      => $tanah->id,
+         $mutasi = MutasiKendaraan::create([
+            'kendaraan_id'      => $kendaraan->id,
             'user_id'       => $request->user_id,
             'mutasi_id'     => $request->mutasi_id,
             'no_surat'      => $request->no_surat,
@@ -104,10 +105,9 @@ class MutasiTanahController extends Controller
 
         History::create([
             'fk_admin_id' => Auth::user()->id,
-            'aksi' => "Tambah data Mutasi tanah $mutasi->no_surat ",
+            'aksi' => "Tambah data Mutasi kendaraan $mutasi->no_surat ",
         ]);
-        return redirect()->route('admin.mutasi-tanah.index')->with('success','data berhasil ditambahkan!!');
-
+        return redirect()->route('admin.mutasi-kendaraan.index')->with('success','data berhasil ditambahkan!!');
     }
 
     /**
