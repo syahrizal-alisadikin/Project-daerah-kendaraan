@@ -12,6 +12,11 @@
             <div class="card">
                 <div class="card-header">
                     <h4><i class="fas fa-book"></i> Tanah</h4>
+                    <div class="ml-auto">
+                         <a href="{{ route('admin.tanah.pdf') }}" target="_blank" class="btn btn-primary mr-1" style="width: 100px" ><i class="fas fa-download"></i> PDF</a>
+                                        <a href="{{ route('admin.tanah.excel') }}"  target="_blank" class="btn btn-success" ><i class="fas fa-download"></i> EXCEL</a>
+                    </div>
+
                 </div>
 
                 <div class="card-body">

@@ -12,11 +12,11 @@ use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware(['permission:pimpinan']);
+    // public function __construct()
+    // {
+    //     $this->middleware(['permission:pimpinan']);
     
-    }
+    // }
 
     public function index()
     {
@@ -168,7 +168,6 @@ class UserController extends Controller
             'nama_lengkap' => 'required',
             'name'      => 'required|unique:users,name,'.$user->id,
             'email'     => 'required|email|unique:users,email,'.$user->id,
-            'password'   => 'required|confirmed'  
         ]);
 
         if($request->file('foto')){

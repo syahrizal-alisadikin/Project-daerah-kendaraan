@@ -42,6 +42,11 @@ Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard.index');
         //  tanah
         Route::resource('/tanah', LuasTanahController::class,['except' => ['show'] ,'as' => 'admin']);
+        // Tanah PDF
+        Route::get('/tanah/pdf',[LuasTanahController::class,'TanahPdf'])->name('admin.tanah.pdf');
+          // Tanah Excel
+        Route::get('/tanah/excel',[LuasTanahController::class,'TanahExcel'])->name('admin.tanah.excel');
+        
         // Pinjam  tanah
         Route::resource('/pinjam-tanah', PinjamTanahController::class,['except' => ['show'] ,'as' => 'admin']);
         route::POST('/pinjam-tanah/kembali-tanah/{id}',[PinjamTanahController::class,'kembaliTanah'])->name('kembali-tanah');

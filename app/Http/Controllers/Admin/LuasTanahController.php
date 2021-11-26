@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\TanahExport;
 use App\Http\Controllers\Controller;
 use App\Models\Tanah;
 use App\Models\User;
 use App\Models\History;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use PDF;
+use Maatwebsite\Excel\Facades\Excel;
 class LuasTanahController extends Controller
 {
     public function index()
@@ -147,5 +149,31 @@ class LuasTanahController extends Controller
         ]);
         return redirect()->route('admin.tanah.index')->with('success','data berhasil di update');
 
+    }
+
+    public function TanahPdf()
+    {
+        if(auth()->user()->can('pimpinan')){
+            $tanah = Tanah::with('user')->get();
+        }else{
+            $tanah = Tanah::with('user')->where('user_id',Auth::user()->id)->get();
+
+        }
+
+        $pdf = PDF::loadview('admin.tanah.pdf',compact('tanah'));
+        return $pdf->stream();
+    }
+
+    public function TanahExcel()
+    {
+        
+        $user = Auth::user();
+       $data =  $user->upb_id != null ? $user->upb->name :  ($user->subunit_id != null ? $user->subunit->name : ($user->unit_id != null ? $user->unit->name : $user->bidang->name));
+        $nama_file = 'Laporan pendataan asset Tanah  ' . $data . '.xlsx';
+
+       
+        return Excel::download(new TanahExport(Auth::user()->id), $nama_file);
+
+         
     }
 }
