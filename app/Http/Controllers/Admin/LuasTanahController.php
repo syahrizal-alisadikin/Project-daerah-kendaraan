@@ -168,7 +168,12 @@ class LuasTanahController extends Controller
     {
         
         $user = Auth::user();
-       $data =  $user->upb_id != null ? $user->upb->name :  ($user->subunit_id != null ? $user->subunit->name : ($user->unit_id != null ? $user->unit->name : $user->bidang->name));
+        if(auth()->user()->can('pimpinan')){
+            $data = " Semua";
+        }else{
+
+            $data =  $user->upb_id != null ? $user->upb->name :  ($user->subunit_id != null ? $user->subunit->name : ($user->unit_id != null ? $user->unit->name : $user->bidang->name));
+        }
         $nama_file = 'Laporan pendataan asset Tanah  ' . $data . '.xlsx';
 
        
